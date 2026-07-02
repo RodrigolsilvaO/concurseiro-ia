@@ -1,6 +1,9 @@
-"bin/" 
-"obj/" 
-"node_modules/" 
-".env" 
-".vs/" 
-".vscode/" 
+bin/
+obj/
+node_modules/
+.env
+.vs/
+.vscode/
+
+**/bin/
+**/obj/
