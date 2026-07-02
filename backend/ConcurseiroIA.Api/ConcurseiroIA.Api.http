@@ -1,0 +1,6 @@
+@ConcurseiroIA.Api_HostAddress = http://localhost:5145
+
+GET {{ConcurseiroIA.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
