@@ -1,3 +1,4 @@
+using ConcurseiroIA.Api.Data;
 using ConcurseiroIA.Api.Dtos;
 using ConcurseiroIA.Api.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -8,19 +9,16 @@ namespace ConcurseiroIA.Api.Controllers
     [Route("api/[controller]")]
     public class ConcursosController : ControllerBase
     {
-        private static readonly List<Concurso> _concursos = new();
-        private static int _proximoId = 1;
-
         [HttpGet]
         public IActionResult Listar()
         {
-            return Ok(_concursos);
+            return Ok(InMemoryDatabase.Concursos);
         }
 
         [HttpGet("{id}")]
         public IActionResult ObterPorId(int id)
         {
-            var concurso = _concursos.FirstOrDefault(c => c.Id == id);
+            var concurso = InMemoryDatabase.Concursos.FirstOrDefault(c => c.Id == id);
 
             if (concurso == null)
             {
@@ -62,7 +60,7 @@ namespace ConcurseiroIA.Api.Controllers
 
             var concurso = new Concurso
             {
-                Id = _proximoId++,
+                Id = InMemoryDatabase.ProximoConcursoId++,
                 Nome = request.Nome,
                 Banca = request.Banca,
                 Cargo = request.Cargo,
@@ -71,7 +69,7 @@ namespace ConcurseiroIA.Api.Controllers
                 CriadoEm = DateTime.Now
             };
 
-            _concursos.Add(concurso);
+            InMemoryDatabase.Concursos.Add(concurso);
 
             return CreatedAtAction(nameof(ObterPorId), new { id = concurso.Id }, concurso);
         }
